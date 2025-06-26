@@ -24,9 +24,13 @@ public class LLMService {
     }
 
     public String invoke(String message) {
-        LLMRequest request = new LLMRequest(List.of(new LLMRequest.Message(message)));
-        LLMResponse response = callLLM(request);
-        return response.getChoices().getFirst().getMessage().getContent();
+        try {
+            LLMRequest request = new LLMRequest(List.of(new LLMRequest.Message(message)));
+            LLMResponse response = callLLM(request);
+            return response.getChoices().getFirst().getMessage().getContent();
+        } catch (Exception e) {
+            return "LLM server error: " + e.getMessage();
+        }
     }
 
     private LLMResponse callLLM(LLMRequest request) {
