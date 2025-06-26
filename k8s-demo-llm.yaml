@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-llm
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-llm
+  namespace: demo-llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-llm
+  template:
+    metadata:
+      labels:
+        app: spring-llm
+    spec:
+      containers:
+      - name: spring-llm
+        image: demo-llm:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LLM_API_BASE_URL
+          value: "http://llm-server:80"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-llm
+  namespace: demo-llm
+spec:
+  type: ClusterIP
+  selector:
+    app: spring-llm
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-server
+  namespace: demo-llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llm-server
+  template:
+    metadata:
+      labels:
+        app: llm-server
+    spec:
+      containers:
+      - name: llm-server
+        image: demo-llm-server:latest
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-server
+  namespace: demo-llm
+spec:
+  type: ClusterIP
+  selector:
+    app: llm-server
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP

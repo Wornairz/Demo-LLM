@@ -6,10 +6,10 @@ services:
       context: ./llm-server
       dockerfile: Dockerfile
     image: demo-llm-server:latest
-    #ports:
-    #  - '9090:8080'
-    expose:
-      - 8080
+    ports:
+      - '9090:8080'
+    #expose:
+    #  - 8080
     restart: unless-stopped
 
   spring-llm:
