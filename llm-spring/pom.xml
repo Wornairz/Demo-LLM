@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>it.unict.sc</groupId>
-    <artifactId>demo-llm</artifactId>
+    <artifactId>demo-spring-llm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo-llm</name>
-    <description>demo-llm</description>
+    <name>demo-spring-llm</name>
+    <description>demo-spring-llm</description>
     <url/>
     <licenses>
         <license/>

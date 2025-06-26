@@ -46,7 +46,7 @@ Questo repository contiene un'applicazione Spring Boot che espone due endpoint R
    ```
 4. Eseguire l'app:
    ```bash
-   java -jar target/demo-llm-*.jar
+   java -jar target/demo-spring-llm-*.jar
    ```
 5. Test degli endpoint:
    - GET:
@@ -64,13 +64,13 @@ Questo repository contiene un'applicazione Spring Boot che espone due endpoint R
 
 1. Build dell'immagine Docker:
    ```bash
-   docker build -t demo-llm:latest .
+   docker build -t demo-spring-llm:latest .
    ```
 2. Avviare il container:
    ```bash
    docker run --rm -p 8080:8080 \
      -e LLM_API_BASE_URL=http://localhost:1234 \
-     demo-llm:latest
+     demo-spring-llm:latest
    ```
 3. Verifica degli endpoint ripetendo i comandi `curl` visti in precedenza.
 
