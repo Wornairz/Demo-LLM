@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  llm-server:
+    build:
+      context: ./llm-server
+      dockerfile: Dockerfile
+    image: demo-llm-server:latest
+    #ports:
+    #  - '9090:8080'
+    expose:
+      - 8080
+    restart: unless-stopped
+
+  spring-llm:
+    build:
+      context: ./llm-spring
+      dockerfile: Dockerfile
+    image: demo-spring-llm:latest
+    ports:
+      - '8080:8080'
+    environment:
+      LLM_API_BASE_URL: 'http://llm-server:8080'
+    restart: unless-stopped
