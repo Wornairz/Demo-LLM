@@ -21,7 +21,8 @@ spec:
     spec:
       containers:
       - name: spring-llm
-        image: demo-llm:latest
+        image: demo-spring-llm:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         env:
@@ -35,7 +36,7 @@ metadata:
   name: spring-llm
   namespace: demo-llm
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: spring-llm
   ports:
@@ -62,6 +63,7 @@ spec:
       containers:
       - name: llm-server
         image: demo-llm-server:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
 
