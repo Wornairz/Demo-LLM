@@ -14,7 +14,7 @@ services:
 
   spring-llm:
     build:
-      context: ./llm-spring
+      context: ./spring-llm
       dockerfile: Dockerfile
     image: demo-spring-llm:latest
     ports:
