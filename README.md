@@ -4,7 +4,7 @@ Questo repository fornisce un’infrastruttura completa per eseguire su un clust
 
 ## Componenti
 
-1. **llm-server**: server Docker basato su [llama.cpp](https://github.com/ggml-org/llama.cpp) che scarica automaticamente un modello GGUF pre-quantizzato e espone un endpoint HTTP per generare completamenti testuali.
+1. **llm-server**: server Docker basato su [llama.cpp](https://github.com/ggml-org/llama.cpp) che scarica automaticamente un modello GGUF pre-quantizzato ed espone un endpoint HTTP per generare completamenti testuali.
 2. **spring-llm**: applicazione Spring Boot che espone endpoint REST per inoltrare richieste al server LLM.
 3. **docker-compose.yaml**: orchestrazione locale di entrambi i servizi.
 4. **k8s-demo-llm.yaml**: manifest Kubernetes per deploy in namespace dedicato.
