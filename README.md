@@ -1,6 +1,6 @@
 # Progetto Demo LLM
 
-Questo repository fornisce un’infrastruttura completa per eseguire un servizio LLM basato su `llama.cpp` insieme a un'applicazione Spring Boot che ne sfrutta le API.
+Questo repository fornisce un’infrastruttura completa per eseguire su un cluster Kubernetes un servizio LLM basato su `llama.cpp` insieme ad un'applicazione Spring Boot che ne sfrutta le API.
 
 ## Componenti
 
