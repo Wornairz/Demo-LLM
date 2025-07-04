@@ -29,25 +29,8 @@ Questo repository fornisce un’infrastruttura completa per eseguire su un clust
 
 - Docker & Docker Compose
 - Java 21+ e Maven 3.9+
-- `kubectl` 
+- kubectl
 - k3d (o simili, come Minikube/kind/k3s)
-
-## Build e run manuale dei singoli container
-
-### LLM server
-```bash
-cd llm-server
-docker build -t demo-llm-server .
-docker run --rm -p 9090:8080 demo-llm-server
-```
-
-### Spring LLM
-```bash
-cd spring-llm
-docker build -t demo-spring-llm .
-docker run --rm -p 8080:8080 \
-  -e LLM_API_BASE_URL=http://llama-server:8080 demo-spring-llm
-```
 
 ## Esecuzione locale con Docker Compose
 
@@ -61,12 +44,12 @@ docker-compose up --build
 - **spring-llm** sarà disponibile su `http://localhost:8080/`
 
 
-## Deploy Kubernetes
+## Deploy Kubernetes locale
 
 Per distribuire entrambi i servizi in un cluster Kubernetes, eseguire, dalla radice del repository:
 
 ```bash
-sh deploy.sh
+sh k8s-local-deploy.sh
 ```
 
 ```markdown
@@ -93,4 +76,4 @@ Lo script prevede i seguenti passaggi:
 
 - Modificare l’URL o il percorso del modello nel `Dockerfile` di **llm-server** per usare modelli differenti.
 - Regolare le variabili di ambiente e le porte secondo le proprie esigenze.
-- Modificare lo script `deploy.sh` a seconda dell'ambiente Kubernetes locale installato
+- Modificare lo script `k8s-local-deploy.sh` a seconda dell'ambiente Kubernetes locale installato

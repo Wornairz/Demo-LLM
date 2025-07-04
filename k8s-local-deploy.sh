@@ -10,7 +10,7 @@ LLM_SERVER_DIR="./llm-server"
 SPRING_LLM_DIR="./spring-llm"
 
 # Manifest Kubernetes
-K8S_MANIFEST="./k8s-demo-llm.yaml"
+K8S_MANIFEST="./k8s-manifest-local.yaml"
 K8S_NAMESPACE="demo-llm"
 
 # --- Build Docker images ---
