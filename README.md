@@ -31,6 +31,7 @@ Questo repository fornisce un’infrastruttura completa per eseguire su un clust
 - Java 21+ e Maven 3.9+
 - kubectl
 - k3d (o simili, come Minikube/kind/k3s)
+- AWS CLI
 
 ## Esecuzione locale con Docker Compose
 
@@ -71,6 +72,17 @@ Lo script prevede i seguenti passaggi:
 
 - **llm-server** è esposto solo internamente come `ClusterIP` all’indirizzo `llm-server:80`.
 - **spring-llm** è esposto esternamente come `LoadBalancer` sulla porta `8080` locale (internamente al cluster sulla porta 80).
+
+## Deploy su AWS EKS
+
+Per distribuire entrambi i servizi su AWS EKS, eseguire, dalla radice del repository:
+
+```bash
+sh k8s-aws-deploy.sh
+```
+
+Lo script prevede i seguenti passaggi:
+1. **WIP**
 
 ## Personalizzazioni
 

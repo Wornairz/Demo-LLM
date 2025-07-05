@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-llm
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-llm
+  namespace: demo-llm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-llm
+  template:
+    metadata:
+      labels:
+        app: spring-llm
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - name: spring-llm
+        image: "${ECR_URL}/demo-spring-llm:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LLM_API_BASE_URL
+          value: "http://llm-server:80"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-llm
+  namespace: demo-llm
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+spec:
+  type: LoadBalancer
+  selector:
+    app: spring-llm
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-server
+  namespace: demo-llm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: llm-server
+  template:
+    metadata:
+      labels:
+        app: llm-server
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - name: llm-server
+        image: "${ECR_URL}/demo-llm-server:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "1"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-server
+  namespace: demo-llm
+spec:
+  type: ClusterIP
+  selector:
+    app: llm-server
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
